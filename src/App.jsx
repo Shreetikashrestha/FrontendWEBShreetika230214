@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, CssBaseline, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import theme from "./theme/theme";
 import AppRoutes from "./router/routes";
-import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
 import { ToastContainer } from "react-toastify";
+import { AuthContext } from "./context/authContext";
+import AdminRoutes from "./router/AdminRoutes";
 
 const GradientBackground = styled(Box)({
   minHeight: "100vh",
@@ -29,17 +29,16 @@ const MainContent = styled(Box)({
 });
 
 const App = () => {
+  const { currentUser } = useContext(AuthContext);
+  const isAdmin = currentUser?.role === "admin"; // Check if the user is an admin
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ToastContainer position="top-right" autoClose={3000} />
       <BrowserRouter>
         <GradientBackground>
-          <Navbar />
-          <MainContent>
-            <AppRoutes />
-          </MainContent>
-          <Footer />
+          <MainContent>{isAdmin ? <AdminRoutes /> : <AppRoutes />}</MainContent>
         </GradientBackground>
       </BrowserRouter>
     </ThemeProvider>
