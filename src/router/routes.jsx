@@ -2,9 +2,12 @@ import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import LoginPage from "../pages/Authentication/Login";
+import AdminLogin from "../pages/Authentication/AdminLogin";
 import RegisterPage from "../pages/Authentication/Register";
 import { LoadingSpinner } from "../components/spinner/Spinner";
 import PrivateRoute from "./privateRoutes";
+import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/footer/Footer";
 
 const HomePage = React.lazy(() => import("../pages/home/Home"));
 const AboutPage = React.lazy(() => import("../pages/about/About"));
@@ -38,12 +41,14 @@ const EyelashServices = React.lazy(() =>
 const AppRoutes = () => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
+      <Navbar />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="admin/login" element={<AdminLogin />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/location" element={<LocationPage />} />
@@ -66,6 +71,7 @@ const AppRoutes = () => {
         <Route path="/eyelashes" element={<EyelashServices />} />
         <Route path="/nailcare" element={<NailCareServices />} />
       </Routes>
+      <Footer />
     </Suspense>
   );
 };

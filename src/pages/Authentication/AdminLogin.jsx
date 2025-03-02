@@ -42,7 +42,7 @@ const StyledTextField = styled(TextField)({
   marginBottom: "20px",
 });
 
-const LoginPage = () => {
+const AdminLogin = () => {
   // State hooks for email and password
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -60,16 +60,11 @@ const LoginPage = () => {
 
     try {
       const response = await login(formData);
-      navigate("/");
+      navigate("/admin/dashboard"); // Navigate to the admin dashboard
     } catch (error) {
-      toast.error("Error logging in");
-      console.log("Error logging in:", error);
+      toast.error("Error logging in as admin");
+      console.log("Error logging in as admin:", error);
     }
-  };
-
-  // Navigate to the admin login page
-  const handleAdminLogin = () => {
-    navigate("/admin/login");
   };
 
   return (
@@ -84,13 +79,13 @@ const LoginPage = () => {
             variant="h3"
             sx={{ color: "white", mb: 2, textAlign: "center" }}
           >
-            Welcome Back
+            Admin Login
           </Typography>
           <Typography
             variant="h6"
             sx={{ color: "#f8a5c2", mb: 4, textAlign: "center" }}
           >
-            Login to your account
+            Login to your Admin account
           </Typography>
 
           <form onSubmit={handleSubmit}>
@@ -138,6 +133,17 @@ const LoginPage = () => {
             >
               Login
             </Button>
+            <Typography
+              sx={{
+                color: "#f8a5c2",
+                textAlign: "center",
+                mt: 2,
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/login")}
+            >
+              Back to User Login
+            </Typography>
           </form>
         </GlassCard>
       </motion.div>
@@ -145,4 +151,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default AdminLogin;
